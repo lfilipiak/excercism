@@ -1,23 +1,14 @@
-x = [2, 2, [123, [334]], 34, [], 123, []]
-
-value = []
+x = [1, 2, None]
 
 
-def flatten(iterable: list):
+def flatten(iterable):
 
-    if len(iterable) != 0:
-        if iterable[0] is not None:
-            if type(iterable[0]) is not type([]):
-                value.append(iterable[0])
-                iterable.pop(0)
-                return flatten(iterable)
-            else:
-                return flatten(iterable[0])
-        else:
-            iterable.pop(0)
-            return flatten(iterable)
-    else:
-        return value
+    flist = []
+    flist.extend ([iterable]) if (type (iterable) is not list) else [flist.extend (flatten (e)) for e in iterable]
+    for x in flist:
+        if x == None:
+            flist.pop(flist.index(x))
+    return flist
 
 
-print(flatten(iterable=x))
+print(flatten(x))
